@@ -332,8 +332,8 @@ tr.hl td { background: #F6D9A8; font-weight: 700; color: #4A2E1E; }
           </ol>
         </div>
         <div class="qrbox">
-          <div class="qr-placeholder">QR code<br/>to be added</div>
-          <div class="qrtext">Scan me &mdash; full paper</div>
+          <img src="%%GITHUB_QR%%" style="width:360px;height:360px;border-radius:18px;border:4px solid #6B4F3A;" alt="GitHub Repository QR"/>
+          <div class="qrtext">GitHub Repository</div>
         </div>
       </div>
     </div>
@@ -343,6 +343,7 @@ tr.hl td { background: #F6D9A8; font-weight: 700; color: #4A2E1E; }
 """
 
 # ─── Assemble HTML ───
+github_qr = "assets/github_qr.png"
 html = (HTML.replace("%%PHOTO_STRIP%%", photo_strip)
             .replace("%%LEGEND_SVG%%", legend_svg)
             .replace("%%BAR_LEGEND_SVG%%", bar_legend_svg)
@@ -353,6 +354,7 @@ html = (HTML.replace("%%PHOTO_STRIP%%", photo_strip)
             .replace("%%FIG7%%", fig_paths["fig7"])
             .replace("%%FIG8%%", fig_paths["fig8"])
             .replace("%%FIG9%%", fig_paths["fig9"])
+            .replace("%%GITHUB_QR%%", github_qr)
             .replace("%%TABLE_ROWS%%", table_html))
 
 with open(OUT_HTML, "w") as f:
