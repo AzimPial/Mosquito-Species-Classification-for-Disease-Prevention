@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+results_VGG16.zip
+results_VGG16_finetuned.zip
+*.zip
+Automated Mosquito Species Classification — Editable A0 Poster (1).png
+DenseNet121*
