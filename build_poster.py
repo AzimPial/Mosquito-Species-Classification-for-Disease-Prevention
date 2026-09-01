@@ -198,7 +198,7 @@ li { margin-bottom: 10px; }
 .datasettitle { font-size: 40px; font-weight: 700; color: #4A2E1E; text-align: center; margin-bottom: 18px; }
 .photogrid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 .ph { width: 820px; text-align: center; }
-.ph img { width: 820px; height: 260px; object-fit: cover; border-radius: 14px; border: 3px solid #C9A883; display: block; }
+.ph img { width: 820px; height: 820px; object-fit: cover; border-radius: 14px; border: 3px solid #C9A883; display: block; }
 .phname { font-size: 32px; font-weight: 600; color: #4A2E1E; margin-top: 8px; }
 .phcount { font-size: 30px; color: #A0522D; font-weight: 600; }
 .figbox { padding: 36px 32px 28px 32px; }
@@ -253,7 +253,7 @@ tr.hl td { background: #F6D9A8; font-weight: 700; color: #4A2E1E; }
         <div class="datasettitle">AMID&nbsp;V1 Balanced Subset &mdash; 2,000 images &middot; 4 classes &middot; 500 per class</div>
         <div class="photogrid">%%PHOTO_STRIP%%</div>
       </div>
-      <div class="box aim"><p><b>Aim:</b> Benchmark four CNN architectures on a <b>balanced 4-class subset</b> of the AMID&nbsp;V1 Bangladeshi mosquito dataset and demonstrate that careful class selection and dataset balancing are critical for reliable species-level classification.</p></div>
+      <div class="box aim"><p><b>Aim:</b> Benchmark three CNN architectures on a <b>balanced 4-class subset</b> of the AMID&nbsp;V1 Bangladeshi mosquito dataset and demonstrate that careful class selection and dataset balancing are critical for reliable species-level classification.</p></div>
       <div>
         <div class="divider"></div>
         <h2>Methods</h2>
@@ -308,11 +308,10 @@ tr.hl td { background: #F6D9A8; font-weight: 700; color: #4A2E1E; }
       <div>
         <h2>Limitation/Future Work</h2>
         <ul>
-          <li>The study was limited to only four species from a single dataset (AMID V1); cross-dataset generalization remains untested.</li>
-          <li>Computational resources restricted experiments to three architectures; deeper models were not explored.</li>
-          <li>Explore focal loss, class-weighted loss, and oversampling to handle imbalance</li>
-          <li>Develop lightweight architectures for on-device deployment in smart traps</li>
-          <li>Extend to multi-modal surveillance: image + acoustic + environmental signals</li>
+          <li>Limited to four species from a single dataset; future work will collect a region-specific dataset from local environments.</li>
+          <li>Only pre-trained architectures were used; custom CNN models tailored for mosquito morphology will be explored.</li>
+          <li>Class imbalance may affect generalization; advanced sampling and loss strategies will be investigated.</li>
+          <li>Edge deployment for real-time field surveillance remains unexplored and will be pursued.</li>
         </ul>
       </div>
       <div>
@@ -327,6 +326,7 @@ tr.hl td { background: #F6D9A8; font-weight: 700; color: #4A2E1E; }
             <li>WHO, &ldquo;Dengue &ndash; global situation,&rdquo; <i>World Health Organization</i>, 2024. [Online]. Available: https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue</li>
             <li>WHO, <i>World Malaria Report 2025</i>. Geneva: World Health Organization, 2025.</li>
             <li>DGHS, Bangladesh, <i>National Dengue Situation Reports 2023</i>. Dhaka: Directorate General of Health Services, 2023.</li>
+            <li>N. Rahola <i>et al.</i>, &ldquo;Assessment of expertise in morphological identification of mosquito species (Diptera: Culicidae) using photomicrographs,&rdquo; <i>Parasites &amp; Vectors</i>, vol. 15, no. 1, pp. 1&ndash;12, 2022.</li>
             <li>T. Balenghien <i>et al.</i>, &ldquo;The current status of mosquito-borne diseases in Europe and the role of mosquitoes as vectors,&rdquo; <i>Parasites &amp; Vectors</i>, vol. 11, no. 1, pp. 1&ndash;12, 2018.</li>
             <li>T. C. Saha, &ldquo;AMID V1: Aedes Mosquito Image Dataset,&rdquo; <i>Kaggle</i>, 2024. [Online]. Available: https://www.kaggle.com/datasets/tonmoy406/aedes-mosquito-image-dataset-version-1-0amid-v1</li>
           </ol>
@@ -373,13 +373,15 @@ if os.path.exists(OUT_PNG) and os.path.getsize(OUT_PNG) > 0:
 else:
     print(f"[WARN] PNG export may have issues. stderr: {r.stderr[:300]}")
 
-pdf_cmd = [CHROME, "--headless", "--disable-gpu", "--no-sandbox",
-           f"--print-to-pdf={OUT_PDF}", "--print-to-pdf-no-header", file_url]
-r = subprocess.run(pdf_cmd, capture_output=True, text=True, timeout=120)
-if os.path.exists(OUT_PNG) and os.path.getsize(OUT_PDF) > 0:
+from PIL import Image
+img = Image.open(OUT_PNG)
+w_px, h_px = img.size
+dpi = 300
+img.save(OUT_PDF, "PDF", resolution=dpi)
+if os.path.exists(OUT_PDF) and os.path.getsize(OUT_PDF) > 0:
     print(f"[OK] wrote {OUT_PDF}  ({os.path.getsize(OUT_PDF):,} bytes)")
 else:
-    print(f"[WARN] PDF export may have issues. stderr: {r.stderr[:300]}")
+    print(f"[WARN] PDF export may have issues.")
 
 print("\nDone! Generated:")
 print(f"  - {OUT_HTML}")
