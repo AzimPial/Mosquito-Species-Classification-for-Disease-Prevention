@@ -21,7 +21,7 @@ BALANCED_CLASSES = [
     ("Aedes_albopictus",       "Aedes albopictus",     500),
     ("Culex_pipiens",          "Culex pipiens",        500),
     ("Aedes_aegypti",          "Aedes aegypti",        500),
-    ("Culex_quinquefasciatus", "Cx. quinquefasciatus", 500),
+    ("Culex_quinquefasciatus", "Culex quinquefasciatus", 500),
 ]
 
 # ─── Species photos → assets/ ───
