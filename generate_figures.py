@@ -167,14 +167,15 @@ ax.set_facecolor("#F5E9DD")
 ax.set_title("Methodology Pipeline", fontsize=16, fontweight="bold", color="#4A2E1E", pad=20)
 
 steps = [
-    (5, 12.5, "AMID V1 Dataset\n8 species, 31,999 images", "#4A2E1E", "white"),
-    (5, 10.5, "Class Balancing\n4 classes x 500 each", "#C97D4A", "white"),
-    (5, 8.5,  "Balanced Subset\n2,000 images, 4 classes", "#6B8E4E", "white"),
-    (2.5, 6.5, "Preprocessing\nResize, Normalize", "#8B5E3C", "white"),
-    (7.5, 6.5, "Augmentation\nFlip, Rotate, Zoom", "#8B5E3C", "white"),
-    (7.5, 4.5, "Train/Val/Test Split\n70% / 15% / 15%", "#D9A66C", "#4A2E1E"),
-    (7.5, 2.5, "3-CNN Benchmarking\nResNet50, EfficientNetV2-S\nVGG16", "#C97D4A", "white"),
-    (7.5, 0.5, "Comparative Results\nAcc, F1, AUC, Loss", "#4A2E1E", "white"),
+    (5, 13.0, "AMID V1 Dataset\n8 species, 31,999 images", "#4A2E1E", "white"),
+    (5, 11.5, "Class Balancing\n4 classes x 500 each", "#C97D4A", "white"),
+    (5, 10.0, "Balanced Subset\n2,000 images, 4 classes", "#6B8E4E", "white"),
+    (2.5, 8.2, "Preprocessing\nResize, Normalize", "#8B5E3C", "white"),
+    (7.5, 8.2, "Augmentation\nFlip, Rotate, Zoom", "#8B5E3C", "white"),
+    (7.5, 6.5, "Train/Val/Test Split\n70% / 15% / 15%", "#D9A66C", "#4A2E1E"),
+    (7.5, 4.8, "3-CNN Benchmarking\nResNet50, EfficientNetV2-S\nVGG16", "#C97D4A", "white"),
+    (7.5, 3.1, "Fine-tuning\nFrozen backbone, partial unfreeze\ncosine decay LR", "#6B8E4E", "white"),
+    (7.5, 1.4, "Comparative Results\nAcc, F1, AUC, Loss", "#4A2E1E", "white"),
 ]
 
 for x, y, text, fc, tc in steps:
@@ -185,14 +186,15 @@ for x, y, text, fc, tc in steps:
 # Arrows
 arrow_kw = dict(arrowstyle="->", color="#8B5E3C", lw=2, mutation_scale=18)
 conns = [
-    ((5, 12.1), (5, 11.1)),   # 1→2
-    ((5, 10.1), (5, 9.1)),    # 2→3
-    ((5, 8.1), (2.5, 7.1)),   # 3→4
-    ((5, 8.1), (7.5, 7.1)),   # 3→5
-    ((2.5, 6.1), (7.5, 6.1)), # 4→5 (horizontal)
-    ((7.5, 6.1), (7.5, 5.1)), # 5→6
-    ((7.5, 4.1), (7.5, 3.1)), # 6→7
-    ((7.5, 2.1), (7.5, 1.1)), # 7→8
+    ((5, 12.6), (5, 12.0)),   # 1→2
+    ((5, 11.1), (5, 10.5)),   # 2→3
+    ((5, 9.6), (2.5, 8.8)),   # 3→4
+    ((5, 9.6), (7.5, 8.8)),   # 3→5
+    ((2.5, 7.8), (7.5, 7.8)), # 4→5 (horizontal)
+    ((7.5, 7.8), (7.5, 7.1)), # 5→6
+    ((7.5, 6.1), (7.5, 5.4)), # 6→7
+    ((7.5, 4.4), (7.5, 3.7)), # 7→8
+    ((7.5, 2.7), (7.5, 2.0)), # 8→9
 ]
 for (x1, y1), (x2, y2) in conns:
     ax.annotate("", xy=(x2, y2), xytext=(x1, y1), arrowprops=arrow_kw)
