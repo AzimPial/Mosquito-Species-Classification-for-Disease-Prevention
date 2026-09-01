@@ -164,37 +164,39 @@ ax.set_xlim(0, 10)
 ax.set_ylim(-1.4, 9.4)
 ax.axis("off")
 ax.set_facecolor("#F5E9DD")
-ax.set_title("Methodology Pipeline", fontsize=16, fontweight="bold", color="#4A2E1E", pad=20)
+ax.set_title("Methodology Pipeline", fontsize=16, fontweight="bold", color="#4A2E1E", pad=16)
 
+# Step boxes: (x, y_center, text, fill, text_color)
 steps = [
-    (5, 8.6, "AMID V1 Dataset\n8 species, 31,999 images", "#4A2E1E", "white"),
-    (5, 7.3, "Class Balancing\n4 classes x 500 each", "#C97D4A", "white"),
-    (5, 6.0, "Balanced Subset\n2,000 images, 4 classes", "#6B8E4E", "white"),
+    (5, 8.6,   "AMID V1 Dataset\n8 species, 31,999 images", "#4A2E1E", "white"),
+    (5, 7.3,   "Class Balancing\n4 classes x 500 each", "#C97D4A", "white"),
+    (5, 6.0,   "Balanced Subset\n2,000 images, 4 classes", "#6B8E4E", "white"),
     (2.5, 4.7, "Preprocessing\nResize, Normalize", "#8B5E3C", "white"),
     (7.5, 4.7, "Augmentation\nFlip, Rotate, Zoom", "#8B5E3C", "white"),
     (7.5, 3.4, "Train/Val/Test Split\n70% / 15% / 15%", "#D9A66C", "#4A2E1E"),
-    (7.5, 2.1, "3-CNN Benchmarking\nResNet50, EfficientNetV2-S\nVGG16", "#C97D4A", "white"),
-    (7.5, 0.8, "Fine-tuning\nFrozen backbone, partial unfreeze\ncosine decay LR", "#6B8E4E", "white"),
-    (5, -0.5, "Comparative Results\nAcc, F1, AUC, Loss", "#4A2E1E", "white"),
+    (7.5, 2.1, "3-CNN Benchmarking\nResNet50, VGG16", "#C97D4A", "white"),
+    (7.5, 0.8, "Fine-tuning\npartial unfreeze", "#6B8E4E", "white"),
+    (5, -0.5,  "Comparative Results\nAccuracy, F1, AUC, Loss", "#4A2E1E", "white"),
 ]
 
 for x, y, text, fc, tc in steps:
-    bbox = dict(boxstyle="round,pad=0.3", facecolor=fc, edgecolor="#D9C6B2", linewidth=1.5)
-    ax.text(x, y, text, ha="center", va="center", fontsize=10, fontweight="bold",
+    bbox = dict(boxstyle="round,pad=0.28", facecolor=fc, edgecolor="#D9C6B2", linewidth=1.5)
+    ax.text(x, y, text, ha="center", va="center", fontsize=9.5, fontweight="bold",
             color=tc, bbox=bbox)
 
-# Arrows
-arrow_kw = dict(arrowstyle="->", color="#8B5E3C", lw=2, mutation_scale=15)
+# Arrows drawn between boxes with shrink so they never overlap box edges
+arrow_kw = dict(arrowstyle="-|>", color="#8B5E3C", lw=2.2, mutation_scale=22,
+                shrinkA=12, shrinkB=12, connectionstyle="arc3,rad=0")
 conns = [
-    ((5, 8.3), (5, 7.9)),   # 1→2
-    ((5, 7.0), (5, 6.6)),   # 2→3
-    ((5, 5.7), (4.3, 5.3)),   # 3→4 (down-left)
-    ((5, 5.7), (7.5, 5.3)),   # 3→5 (down-right)
-    ((2.5, 4.4), (7.5, 4.4)), # 4→5 (horizontal)
-    ((7.5, 4.4), (7.5, 4.0)), # 5→6
-    ((7.5, 3.1), (7.5, 2.7)), # 6→7
-    ((7.5, 1.8), (7.5, 1.4)), # 7→8
-    ((7.5, 0.5), (5.7, 0.1)), # 8→9 (down to center)
+    ((5, 8.24), (5, 7.66)),       # 1→2
+    ((5, 6.94), (5, 6.36)),       # 2→3
+    ((5, 5.64), (2.5, 5.06)),     # 3→4 (down-left)
+    ((5, 5.64), (7.5, 5.06)),     # 3→5 (down-right)
+    ((2.5, 4.34), (7.5, 4.34)),   # 4→5 (horizontal)
+    ((7.5, 4.34), (7.5, 3.76)),   # 5→6
+    ((7.5, 3.04), (7.5, 2.46)),   # 6→7
+    ((7.5, 1.74), (7.5, 1.16)),   # 7→8
+    ((7.5, 0.44), (5, -0.14)),    # 8→9 (down to center)
 ]
 for (x1, y1), (x2, y2) in conns:
     ax.annotate("", xy=(x2, y2), xytext=(x1, y1), arrowprops=arrow_kw)
