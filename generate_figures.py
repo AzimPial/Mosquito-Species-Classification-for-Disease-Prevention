@@ -159,42 +159,42 @@ _save(fig, "fig2_sample_images.png")
 # FIGURE 3: Pipeline Flowchart (matplotlib version)
 # ════════════════════════════════════════════════════════════════════
 print("Generating fig3...")
-fig, ax = plt.subplots(figsize=(11, 15), facecolor="#F5E9DD")
+fig, ax = plt.subplots(figsize=(10, 12), facecolor="#F5E9DD")
 ax.set_xlim(0, 10)
-ax.set_ylim(0, 15)
+ax.set_ylim(0, 12)
 ax.axis("off")
 ax.set_facecolor("#F5E9DD")
 ax.set_title("Methodology Pipeline", fontsize=16, fontweight="bold", color="#4A2E1E", pad=20)
 
 steps = [
-    (5, 14.3, "AMID V1 Dataset\n8 species, 31,999 images", "#4A2E1E", "white"),
-    (5, 12.9, "Class Balancing\n4 classes x 500 each", "#C97D4A", "white"),
-    (5, 11.5, "Balanced Subset\n2,000 images, 4 classes", "#6B8E4E", "white"),
-    (2.5, 9.7, "Preprocessing\nResize, Normalize", "#8B5E3C", "white"),
-    (7.5, 9.7, "Augmentation\nFlip, Rotate, Zoom", "#8B5E3C", "white"),
-    (7.5, 8.0, "Train/Val/Test Split\n70% / 15% / 15%", "#D9A66C", "#4A2E1E"),
-    (7.5, 6.3, "3-CNN Benchmarking\nResNet50, EfficientNetV2-S\nVGG16", "#C97D4A", "white"),
-    (7.5, 4.6, "Fine-tuning\nFrozen backbone, partial unfreeze\ncosine decay LR", "#6B8E4E", "white"),
-    (7.5, 2.9, "Comparative Results\nAcc, F1, AUC, Loss", "#4A2E1E", "white"),
+    (5, 11.3, "AMID V1 Dataset\n8 species, 31,999 images", "#4A2E1E", "white"),
+    (5, 9.9, "Class Balancing\n4 classes x 500 each", "#C97D4A", "white"),
+    (5, 8.5, "Balanced Subset\n2,000 images, 4 classes", "#6B8E4E", "white"),
+    (2.5, 7.0, "Preprocessing\nResize, Normalize", "#8B5E3C", "white"),
+    (7.5, 7.0, "Augmentation\nFlip, Rotate, Zoom", "#8B5E3C", "white"),
+    (7.5, 5.5, "Train/Val/Test Split\n70% / 15% / 15%", "#D9A66C", "#4A2E1E"),
+    (7.5, 4.0, "3-CNN Benchmarking\nResNet50, EfficientNetV2-S\nVGG16", "#C97D4A", "white"),
+    (7.5, 2.5, "Fine-tuning\nFrozen backbone\ncosine decay LR", "#6B8E4E", "white"),
+    (7.5, 1.0, "Comparative Results\nAcc, F1, AUC, Loss", "#4A2E1E", "white"),
 ]
 
 for x, y, text, fc, tc in steps:
-    bbox = dict(boxstyle="round,pad=0.4", facecolor=fc, edgecolor="#D9C6B2", linewidth=1.5)
-    ax.text(x, y, text, ha="center", va="center", fontsize=11, fontweight="bold",
+    bbox = dict(boxstyle="round,pad=0.35", facecolor=fc, edgecolor="#D9C6B2", linewidth=1.5)
+    ax.text(x, y, text, ha="center", va="center", fontsize=10.5, fontweight="bold",
             color=tc, bbox=bbox)
 
 # Arrows
-arrow_kw = dict(arrowstyle="->", color="#8B5E3C", lw=2, mutation_scale=18)
+arrow_kw = dict(arrowstyle="->", color="#8B5E3C", lw=2, mutation_scale=16)
 conns = [
-    ((5, 13.9), (5, 13.4)),   # 1→2
-    ((5, 12.5), (5, 12.0)),   # 2→3
-    ((5, 11.1), (2.5, 10.3)),   # 3→4
-    ((5, 11.1), (7.5, 10.3)),   # 3→5
-    ((2.5, 9.3), (7.5, 9.3)), # 4→5 (horizontal)
-    ((7.5, 9.3), (7.5, 8.6)), # 5→6
-    ((7.5, 7.6), (7.5, 6.9)), # 6→7
-    ((7.5, 5.9), (7.5, 5.2)), # 7→8
-    ((7.5, 4.2), (7.5, 3.5)), # 8→9
+    ((5, 10.9), (5, 10.4)),   # 1→2
+    ((5, 9.5), (5, 9.0)),   # 2→3
+    ((5, 8.1), (2.5, 7.6)),   # 3→4
+    ((5, 8.1), (7.5, 7.6)),   # 3→5
+    ((2.5, 6.6), (7.5, 6.6)), # 4→5 (horizontal)
+    ((7.5, 6.6), (7.5, 6.0)), # 5→6
+    ((7.5, 5.1), (7.5, 4.5)), # 6→7
+    ((7.5, 3.6), (7.5, 3.0)), # 7→8
+    ((7.5, 2.1), (7.5, 1.5)), # 8→9
 ]
 for (x1, y1), (x2, y2) in conns:
     ax.annotate("", xy=(x2, y2), xytext=(x1, y1), arrowprops=arrow_kw)
